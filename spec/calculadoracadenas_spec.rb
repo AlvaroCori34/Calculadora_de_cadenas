@@ -35,25 +35,49 @@ RSpec.describe "Calculadora De Cadenas" do
     it "Deveria devolver el numero 12 para el delimitador '//[...]\n1...2...3\n1...2...3'" do
         expect(calcularCadena("//[...]\n1...2...3\n1...2...3")).to eq(12)
     end
+    it "Deveria devolver el numero 6 para 2 delimitadores '//[*][%]\n1*2%3'" do
+        expect(calcularCadena("//[*][%]\n1*2%3")).to eq(6)
+    end
+    it "Deveria devolver el numero 10 para 4 delimitadores '//[*][%][!][$]\n1*2%3!2$2'" do
+        expect(calcularCadena("//[*][%][!][$]\n1*2%3!2$2")).to eq(10)
+    end
+    it "Deveria devolver el numero 20 para 4 delimitadores y saltos de lineas '//[*][%][!][$]\n1*2%3\n5!2\n5$2'" do
+        expect(calcularCadena("//[*][%][!][$]\n1*2%3\n5!2\n5$2")).to eq(20)
+    end
 end
 
 def calcularCadena(cadena)
     
-    delimitador=","
-
+    delimitadores=[","]
+    i=0
     if (cadena[0].to_s+cadena[1].to_s=="//")
-        delimitador=""
+        delimitadores=[]
         i=3
         caracter=cadena[i].to_s
-        while (caracter!="]")
-             delimitador=delimitador+caracter
-             i=i+1
-             caracter=cadena[i].to_s
+        while (caracter!="\n")
+            delimitador=""
+            while (caracter!="]")
+                 delimitador=delimitador+caracter
+                 i=i+1
+                 caracter=cadena[i].to_s
+             end
+            delimitadores.push(delimitador)
+            i=i+1
+            if(cadena[i].to_s=="[")
+                i=i+1
+            end
+            caracter=cadena[i].to_s
         end
+        i=i+1
     end
-    
-    arreglo=cadena.gsub("\n",delimitador)
-    arreglo=arreglo.split(delimitador)
+    cadena=cadena[i,cadena.length]
+    arreglo=cadena.gsub("\n","*")
+    delimitadores.each do |delimitador|
+        arreglo=arreglo.gsub(delimitador,"*")
+        #puts("dddddddd ")
+        #puts(arreglo)
+    end
+    arreglo=arreglo.split('*')
     acumulador=0
     arreglo.each do |numero|
         n=numero.to_i
