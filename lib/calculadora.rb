@@ -1,5 +1,4 @@
-def calcularCadena(cadena)
-    
+def captarDelimitadores(cadena)
     delimitadores=[","]  #delimitador por defecto
     i=0                  #inicio de la cadena
     if (cadena[0].to_s+cadena[1].to_s=="//")    
@@ -22,7 +21,9 @@ def calcularCadena(cadena)
         end
         i=i+1
     end
-    cadena=cadena[i,cadena.length]
+    return delimitadores, i
+end
+def separarDelimitadores(cadena,delimitadores)
     arreglo=cadena.gsub("\n","*")
     delimitadores.each do |delimitador|
         arreglo=arreglo.gsub(delimitador,"*")
@@ -30,6 +31,12 @@ def calcularCadena(cadena)
         #puts(arreglo)
     end
     arreglo=arreglo.split('*')
+    return arreglo
+end
+def calcularCadena(cadena)
+    delimitadores, i =captarDelimitadores(cadena)
+    cadena=cadena[i,cadena.length]
+    arreglo=separarDelimitadores(cadena,delimitadores)
     acumulador=0
     arreglo.each do |numero|
         n=numero.to_i
