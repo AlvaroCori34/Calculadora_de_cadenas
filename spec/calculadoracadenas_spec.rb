@@ -29,11 +29,31 @@ RSpec.describe "Calculadora De Cadenas" do
     it "Deveria devolver el numero 1111 ignorando el numero mayor a 1000 para la cadena 1,2000\n 10,100,1000,2000" do
         expect(calcularCadena("1,2000\n 10,100,1000,2000")).to eq(1111)
     end
+    it "Deveria devolver el numero 6 para el delimitador '//[***]\n1***2***3'" do
+        expect(calcularCadena("//[***]\n1***2***3")).to eq(6)
+    end
+    it "Deveria devolver el numero 12 para el delimitador '//[...]\n1...2...3\n1...2...3'" do
+        expect(calcularCadena("//[...]\n1...2...3\n1...2...3")).to eq(12)
+    end
 end
 
 def calcularCadena(cadena)
-    arreglo=cadena.gsub("\n",",")
-    arreglo=arreglo.split(",")
+    
+    delimitador=","
+
+    if (cadena[0].to_s+cadena[1].to_s=="//")
+        delimitador=""
+        i=3
+        caracter=cadena[i].to_s
+        while (caracter!="]")
+             delimitador=delimitador+caracter
+             i=i+1
+             caracter=cadena[i].to_s
+        end
+    end
+    
+    arreglo=cadena.gsub("\n",delimitador)
+    arreglo=arreglo.split(delimitador)
     acumulador=0
     arreglo.each do |numero|
         n=numero.to_i
