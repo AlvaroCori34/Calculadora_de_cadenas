@@ -6,8 +6,24 @@ RSpec.describe "Calculadora De Cadenas" do
     it "Deberia devolver el numero 5 para la cadena 5" do
         expect(calcularCadena("5")).to eq(5)
     end
+    it "Deberia devolver el numero 6 para la cadena 5 y 1" do
+        expect(calcularCadena("5,1")).to eq(6)
+    end
+
+    it "Deberia devolver el numero 8 para la cadena 5, 1 y 2" do
+        expect(calcularCadena("5,1,2")).to eq(8)
+    end
+
+    it "Deberia devolver el numero 10 para la cadena 1, 2,3 y 4" do
+        expect(calcularCadena("1,2,3,4")).to eq(10)
+    end
 end
 
 def calcularCadena(cadena)
-    cadena[0].to_i
+    arreglo=cadena.split(",")
+    acumulador=0
+    arreglo.each do |numero|
+        acumulador = acumulador + numero.to_i
+    end
+    return acumulador
 end
