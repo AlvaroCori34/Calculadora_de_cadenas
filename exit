@@ -1,0 +1,53 @@
+[33mcommit 8ce13ddce42a0dc14609374bcfaa91e69ce97d71[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: AlvaroCori <bacs200018@gmail.com>
+Date:   Wed Apr 28 18:48:29 2021 -0400
+
+    9no ciclo ultima refactorizacion del codigo
+
+[33mcommit 9115ad10f70f68f50dbae94d99b0ac10bff27c79[m
+Author: AlvaroCori <bacs200018@gmail.com>
+Date:   Wed Apr 28 18:41:01 2021 -0400
+
+    8vo ciclo libreria
+
+[33mcommit fe1fbfc0cbcf6ecad64a491a6d793d2660f79f0e[m
+Author: AlvaroCori <bacs200018@gmail.com>
+Date:   Wed Apr 28 18:35:32 2021 -0400
+
+    7mo ciclo cadenas con varios delimitadores
+
+[33mcommit 6eb53a66516fb9feadaea83057cb5777be791d2a[m
+Author: AlvaroCori <bacs200018@gmail.com>
+Date:   Wed Apr 28 17:54:04 2021 -0400
+
+    6to ciclo cadenas con delimitador definido
+
+[33mcommit 4068fcb8acb671d622a1430540470946f8d3f0f6[m
+Author: AlvaroCori <bacs200018@gmail.com>
+Date:   Wed Apr 28 17:36:55 2021 -0400
+
+    5to ciclo cadenas excluyendo el valor mayor a 1000
+
+[33mcommit 0c3762a9eb37f14981aab6b0093bb07c7524a224[m
+Author: AlvaroCori <bacs200018@gmail.com>
+Date:   Wed Apr 28 17:26:43 2021 -0400
+
+    4to ciclo agregado cadenas con salto de linea
+
+[33mcommit 95f902d189f2846ce483ad9350ae72f66005c9e0[m
+Author: AlvaroCori <bacs200018@gmail.com>
+Date:   Wed Apr 28 17:04:55 2021 -0400
+
+    3er ciclo numeros separados por comas y refactorizacion
+
+[33mcommit 21080965c912d754cfe0dc76621f6b34696962d0[m
+Author: AlvaroCori <bacs200018@gmail.com>
+Date:   Wed Apr 28 17:03:12 2021 -0400
+
+    2do ciclo prueba con 1 numero
+
+[33mcommit 161fb908beb37fc0ed13a7b109a7e9da153dd86e[m
+Author: AlvaroCori <bacs200018@gmail.com>
+Date:   Wed Apr 28 17:01:34 2021 -0400
+
+    1er ciclo base

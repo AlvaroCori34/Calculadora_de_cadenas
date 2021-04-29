@@ -1,46 +1,61 @@
-def captarDelimitadores(cadena)
-    delimitadores=[","]  #delimitador por defecto
-    i=0                  #inicio de la cadena
-    if (cadena[0].to_s+cadena[1].to_s=="//")    
-        delimitadores=[]
-        i=3             #comenzamos por el primer delimitador
-        caracter=cadena[i].to_s
-        while (caracter!="\n")#fin de los delimitadores
-            delimitador=""
-            while (caracter!="]")#] termina un delimitador
-                 delimitador=delimitador+caracter
-                 i=i+1
-                 caracter=cadena[i].to_s
-             end
-            delimitadores.push(delimitador)#agregar delimitador
+def captarDelimitador(cadenaDelimitadores,i)
+    delimitador=""
+    caracter=cadenaDelimitadores[i].to_s
+    while (caracter!="]")
+        delimitador=delimitador+caracter
+        i=i+1
+        caracter=cadenaDelimitadores[i].to_s
+    end
+    return delimitador,i
+end
+def cambiarDelimitador(cadenaDeNumeros,delimitador)
+    cadenaDeNumeros = cadenaDeNumeros.gsub(delimitador,",")
+    return cadenaDeNumeros
+end
+def cadenaConDelimitadorUniformizado(cadena)    
+
+    if (cadena[0,2].to_s=="//")    
+
+        separadorDeDelimitadores = cadena.index("\n")+1
+        cadenaDelimitadores = cadena[0,separadorDeDelimitadores]
+        cadenaDeNumeros = cadena[separadorDeDelimitadores,cadena.length]   
+
+        cadenaDeNumeros=cadenaDeNumeros.gsub("\n",",")
+
+        i=3    
+        while (cadenaDelimitadores[i].to_s != "\n")
+            delimitador, i = captarDelimitador(cadenaDelimitadores,i)
+            cadenaDeNumeros = cambiarDelimitador(cadenaDeNumeros,delimitador)
             i=i+1
-            if(cadena[i].to_s=="[")#si aun se agrega otro delimitador se lo capta
+            if(cadenaDelimitadores[i].to_s=="[")
                 i=i+1
             end
-            caracter=cadena[i].to_s
         end
         i=i+1
+    else
+        cadenaDeNumeros=cadena.gsub("\n",",")
+        cadenaDeNumeros=cadenaDeNumeros
     end
-    return delimitadores, i
+    return cadenaDeNumeros
 end
-def separarDelimitadores(cadena,delimitadores)
-    arreglo=cadena.gsub("\n","*")
-    delimitadores.each do |delimitador|
-        arreglo=arreglo.gsub(delimitador,"*")
-        #puts("dddddddd ")
-        #puts(arreglo)
+
+
+def numerosMenorOIgualA(num, limite)
+    if (num<=limite)
+        return num
+    else
+        return 0        
     end
-    arreglo=arreglo.split('*')
-    return arreglo
 end
 def calcularCadena(cadena)
-    delimitadores, i =captarDelimitadores(cadena)
-    cadena=cadena[i,cadena.length]
-    arreglo=separarDelimitadores(cadena,delimitadores)
-    acumulador=0
-    arreglo.each do |numero|
-        n=numero.to_i
-        acumulador = acumulador + n if (n<=1000)
-    end
+    cadenaDeNumeros =cadenaConDelimitadorUniformizado(cadena)
+    cadenaDeNumeros=cadenaDeNumeros.split(",")
+    
+    numeros =cadenaDeNumeros.map { |str| numerosMenorOIgualA(str.to_i,1000) }
+    acumulador=numeros.sum()
     return acumulador
 end
+
+#https://refactoring.com/catalog/
+
+#https://refactoring.guru/es/refactoring/smells
