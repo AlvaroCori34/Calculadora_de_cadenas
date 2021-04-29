@@ -8,37 +8,38 @@ def captarDelimitador(cadenaDelimitadores,i)
     end
     return delimitador,i
 end
-def cambiarDelimitador(cadenaDeNumeros,delimitador)
-    cadenaDeNumeros = cadenaDeNumeros.gsub(delimitador,",")
+
+def cambiarDelimitador(cadenaDeNumeros,delimitador,nuevoDelimitador)
+    cadenaDeNumeros = cadenaDeNumeros.gsub(delimitador,nuevoDelimitador)
     return cadenaDeNumeros
 end
-def cadenaConDelimitadorUniformizado(cadena)    
 
+def separarDelimitadoresYNumeros(cadena)
+    separadorDeDelimitadores = cadena.index("\n")+1
+    cadenaDelimitadores = cadena[0,separadorDeDelimitadores]
+    cadenaDeNumeros = cadena[separadorDeDelimitadores,cadena.length]   
+    return cadenaDelimitadores, cadenaDeNumeros
+end 
+
+def obtenerCadenaDeNumeros(cadena)    
     if (cadena[0,2].to_s=="//")    
-
-        separadorDeDelimitadores = cadena.index("\n")+1
-        cadenaDelimitadores = cadena[0,separadorDeDelimitadores]
-        cadenaDeNumeros = cadena[separadorDeDelimitadores,cadena.length]   
-
-        cadenaDeNumeros=cadenaDeNumeros.gsub("\n",",")
-
+        cadenaDelimitadores,cadenaDeNumeros = separarDelimitadoresYNumeros(cadena)
+        cadenaDeNumeros=cambiarDelimitador(cadenaDeNumeros,"\n",",")
         i=3    
         while (cadenaDelimitadores[i].to_s != "\n")
             delimitador, i = captarDelimitador(cadenaDelimitadores,i)
-            cadenaDeNumeros = cambiarDelimitador(cadenaDeNumeros,delimitador)
+            cadenaDeNumeros = cambiarDelimitador(cadenaDeNumeros,delimitador,",")
             i=i+1
             if(cadenaDelimitadores[i].to_s=="[")
                 i=i+1
             end
         end
-        i=i+1
     else
-        cadenaDeNumeros=cadena.gsub("\n",",")
+        cadenaDeNumeros=cambiarDelimitador(cadena,"\n",",")
         cadenaDeNumeros=cadenaDeNumeros
     end
     return cadenaDeNumeros
 end
-
 
 def numerosMenorOIgualA(num, limite)
     if (num<=limite)
@@ -47,15 +48,13 @@ def numerosMenorOIgualA(num, limite)
         return 0        
     end
 end
+
 def calcularCadena(cadena)
-    cadenaDeNumeros =cadenaConDelimitadorUniformizado(cadena)
+    cadenaDeNumeros =obtenerCadenaDeNumeros(cadena)
     cadenaDeNumeros=cadenaDeNumeros.split(",")
-    
     numeros =cadenaDeNumeros.map { |str| numerosMenorOIgualA(str.to_i,1000) }
     acumulador=numeros.sum()
     return acumulador
 end
 
-#https://refactoring.com/catalog/
 
-#https://refactoring.guru/es/refactoring/smells
